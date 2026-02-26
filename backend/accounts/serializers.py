@@ -16,6 +16,9 @@ class SignupSerializer(serializers.ModelSerializer):
             'bio', 'affiliation', 'country', 'website',
             'password', 'password2'
         ]
+        extra_kwargs = {
+            'email': {'required': False, 'allow_blank': True},  # ← Add this line
+        }
 
     def validate(self, attrs):
         if attrs['password'] != attrs['password2']:
@@ -29,7 +32,7 @@ class SignupSerializer(serializers.ModelSerializer):
 
 
 class LoginSerializer(serializers.Serializer):
-    email    = serializers.EmailField()
+    username    = serializers.CharField()
     password = serializers.CharField(write_only=True)
 
 

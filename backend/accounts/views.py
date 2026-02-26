@@ -63,13 +63,13 @@ class LoginView(APIView):
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        email    = serializer.validated_data['email']
+        username    = serializer.validated_data['username']
         password = serializer.validated_data['password']
-        user     = authenticate(request, email=email, password=password)
+        user     = authenticate(request, username=username, password=password)
 
         if user is None:
             return Response(
-                {'error': 'Invalid email or password.'},
+                {'error': 'Invalid username or password.'},
                 status=status.HTTP_401_UNAUTHORIZED
             )
         if not user.is_active:
