@@ -1,0 +1,71 @@
+<div class="form-container lato-regular">
+    <form [formGroup]="form" (ngSubmit)="register()">
+        @if(formErrorMsg) {
+           <div class="error">{{ formErrorMsg }}</div> 
+        }
+        
+        <h1>Create an Account</h1>
+        <legend>
+            <input type="text" formControlName="first_name" placeholder="First name" minlength="2">
+            <input type="text" formControlName="last_name" placeholder="Last name">
+        </legend>
+        <div class="alert">
+            @if(firstName?.invalid && (firstName?.dirty || firstName?.touched)){
+                @if (firstName?.hasError('required')) {
+                <small class="error">First name is required</small>
+                }
+                @if (firstName?.hasError('minlength')) {
+                <small class="error">First name must be at least 2 characters long</small>
+                }
+            }
+            @if(lastName?.invalid && (lastName?.dirty || lastName?.touched)){
+                @if (lastName?.hasError('required')) {
+                <small class="error">Last name is required</small>
+                }
+                @if (lastName?.hasError('minlength')) {
+                <small class="error">Last name must be at least 2 characters long</small>
+                }
+            }
+        </div>
+        <div class="credentials-section">
+            <input type="text" formControlName="username" placeholder="username">
+            @if(username?.invalid && (username?.dirty || username?.touched)){
+                @if (username?.hasError('required')) {
+                    <small class="error">Username is required</small>
+                }
+                @if (username?.hasError('minlength')) {
+                    <small class="error">Username must be at least 2 characters long</small>
+                }
+            }
+            @if (username?.hasError('error')) {
+                <small class="error">{{ username?.getError('error') }}</small>
+              }
+            <input type="password" formControlName="password" placeholder="Password">
+            @if(password?.invalid && (password?.dirty || password?.touched)){
+                @if (password?.hasError('required')) {
+                    <small class="error">Password is required</small>
+                }
+                @if (password?.hasError('pattern')) {
+                    <small class="error">Password must be at least 6 characters, contain an uppercase letter, a lowercase letter, and a number - no spaces</small>
+                }
+            }
+            @if (password?.hasError('error')) {
+                <small class="error">{{ password?.getError('error') }}</small>
+              }
+            <input type="password" formControlName="password2" placeholder="Confirm Password">
+            @if (password?.hasError('error')) {
+                <small class="error">{{ password?.getError('error') }}</small>
+              }
+            @if (password2?.invalid && (password2?.dirty || password2?.touched)) {
+            <small class="error">Please retype your password</small>
+            }
+        </div>
+        <button>
+            REGISTER
+        </button>
+        <div>
+            <p>Already have an account?</p> 
+            <a routerLink="/login">Login</a>
+        </div>
+    </form>
+</div>

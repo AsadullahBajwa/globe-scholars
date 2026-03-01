@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="logo">
+         <h1>Globe-Scholars</h1>
+    </div>
+
+    <div class="menu">
+        <a routerLink="/" routerLinkActive="active">Home</a>
+        <a routerLink="/about" routerLinkActive="active">About</a>
+        <a routerLink="/scholars" routerLinkActive="active">Scholars</a>
+        <a routerLink="/repository" routerLinkActive="active">Repository</a>
+
+        <div class="menu-btns">
+            @if(isLoggedIn && userImage){
+                <div class="profileImage">
+                    <img [src]="userImage" />
+                </div>
+            }
+            <button>
+                @if(!isLoggedIn) {
+                    <a routerLink="/login">LOGIN</a>
+                } @else {
+                    <a routerLink="/upload">UPLOAD</a>
+                }
+            </button>
+        </div>
+    </div>
+</div>
