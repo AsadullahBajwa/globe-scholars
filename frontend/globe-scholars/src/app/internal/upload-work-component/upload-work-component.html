@@ -1,0 +1,93 @@
+<div class="upload-container">
+  <div class="breadcrumb">Profile > Upload</div>
+
+  <div class="upload-card">
+    <h1>Upload Your Scholarly Work</h1>
+    <p class="subtitle">Upload your work for the world to see!</p>
+
+    <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
+
+      <div class="field-group">
+        <label>Title <span class="required">*</span></label>
+        <input
+          type="text"
+          formControlName="title"
+          placeholder="Enter the title of the document"
+          [class.invalid]="isFieldInvalid('title')"
+        />
+        @if (isFieldInvalid('title')) {
+          <small class="error">This field is required</small>
+        }
+      </div>
+
+      <div class="field-group">
+        <label>Author(s) <span class="required">*</span></label>
+        <div formArrayName="authors">
+          @for (author of authors.controls; track author; let i = $index) {
+            <div class="author-row">
+              <div class="input-line">
+                <input
+                  [formControlName]="i"
+                  placeholder="Enter the author's name"
+                  [class.invalid]="isAuthorInvalid(i)"
+                />
+                @if (authors.length > 1) {
+                  <button type="button" (click)="removeAuthor(i)" class="secondary-btn">
+                    Remove Author
+                  </button>
+                }
+              </div>
+              @if (isAuthorInvalid(i)) {
+                <small class="error">This field is required</small>
+              }
+            </div>
+          }
+        </div>
+        <div class="author-buttons">
+          <button type="button" (click)="addAuthor()" class="primary-btn">
+            Add Author
+          </button>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>Publication Date <span class="required">*</span></label>
+        <input
+          type="text"
+          formControlName="publicationDate"
+          placeholder="YYYY-MM-DD"
+          [class.invalid]="isFieldInvalid('publicationDate')"
+        />
+        @if (isFieldInvalid('publicationDate')) {
+          <small class="error">This field is required</small>
+        }
+      </div>
+
+      <div class="field-group">
+        <label>File Upload <span class="required">*</span></label>
+        <div class="file-input-wrapper" [class.invalid]="fileError" (click)="fileInput.click()">
+          <span class="file-placeholder">{{ selectedFile ? selectedFile.name : 'Click to upload a file' }}</span>
+          <input #fileInput type="file" (change)="onFileChange($event)" hidden />
+        </div>
+        @if (fileError) {
+          <small class="error">{{ fileError }}</small>
+        } @else {
+          <small class="hint">Only .docx and pdf files allowed</small>
+        }
+      </div>
+
+      <div class="field-group">
+        <label>Description</label>
+        <input
+          type="text"
+          formControlName="description"
+          placeholder="Enter a brief description"
+        />
+        <small class="hint">Optional</small>
+      </div>
+
+      <button type="submit" class="submit-btn">Upload</button>
+
+    </form>
+  </div>
+</div>
