@@ -7,7 +7,7 @@
         <h1>Create an Account</h1>
         <legend>
             <input type="text" formControlName="first_name" placeholder="First name" minlength="2">
-            <input type="text" formControlName="last_name" placeholder="Last name">
+            <input type="text" formControlName="last_name" placeholder="Last name" minlength="2">
         </legend>
         <div class="alert">
             @if(firstName?.invalid && (firstName?.dirty || firstName?.touched)){
