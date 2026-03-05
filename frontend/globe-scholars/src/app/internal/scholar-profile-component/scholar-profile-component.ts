@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterModule } from '@angular/router';
-import { ScholarsService } from '../../services/scholars/scholars-service';
-import { Scholar } from '../../services/scholars/scholar.model';
+import {Component, OnInit} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {ActivatedRoute, RouterModule} from '@angular/router';
+import {ScholarsService} from '../../services/scholars/scholars-service';
+import {Scholar} from '../../services/scholars/scholar.model';
 
 @Component({
   selector: 'app-scholar-profile',
@@ -19,7 +19,8 @@ export class ScholarProfileComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private scholarsService: ScholarsService
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -39,11 +40,30 @@ export class ScholarProfileComponent implements OnInit {
     return new Date(date).getFullYear();
   }
 
+  copied = false;
+
   copyProfileLink() {
-    navigator.clipboard.writeText(window.location.href);
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      this.copied = true;
+      setTimeout(() => this.copied = false, 2000);
+    });
   }
 
   downloadProfile() {
+    if (!this.scholar) return;
 
+    this.scholarsService.exportScholar(this.scholar.id).subscribe({
+      next: (blob) => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${this.scholar!.fullName}.pdf`;
+        a.click();
+        URL.revokeObjectURL(url);
+      },
+      error: () => {
+        console.error('Failed to download profile');
+      }
+    });
   }
 }

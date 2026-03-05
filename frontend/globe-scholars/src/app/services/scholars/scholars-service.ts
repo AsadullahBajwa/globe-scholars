@@ -38,4 +38,10 @@ export class ScholarsService {
       uploadCount: s.upload_count
     };
   }
+
+  exportScholar(id: number): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}${id}/export/`, {
+      responseType: 'blob'
+    });
+  }
 }

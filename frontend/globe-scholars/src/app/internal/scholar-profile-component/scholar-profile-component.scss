@@ -227,3 +227,17 @@
     width: 100%;
   }
 }
+
+.copied-text {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a1a1a;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 13px;
+  z-index: 1000;
+  pointer-events: none;
+}
