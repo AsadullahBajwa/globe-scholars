@@ -4,6 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {ScholarsService} from '../../services/scholars/scholars-service';
 import {Scholar} from '../../services/scholars/scholar.model';
 import {isPlatformBrowser} from '@angular/common';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-scholars',
@@ -22,8 +23,9 @@ export class ScholarsComponent implements OnInit {
 
   constructor(
     private scholarsService: ScholarsService,
+    private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private cdr: ChangeDetectorRef  // 👈
+    private cdr: ChangeDetectorRef
   ) {
   }
 
@@ -38,15 +40,15 @@ export class ScholarsComponent implements OnInit {
     this.error = null;
 
     this.scholarsService.getScholars().subscribe({
-      next: (data) => {
+      next: (data: Scholar[]) => {
         this.scholars = data;
         this.isLoading = false;
-        this.cdr.detectChanges();  // 👈
+        this.cdr.detectChanges();
       },
       error: () => {
         this.error = 'Failed to load scholars. Please try again.';
         this.isLoading = false;
-        this.cdr.detectChanges();  // 👈
+        this.cdr.detectChanges();
       }
     });
   }
@@ -69,5 +71,9 @@ export class ScholarsComponent implements OnInit {
 
   getYear(date: Date): number {
     return date.getFullYear();
+  }
+
+  goToProfile(id: number) {
+    this.router.navigate(['/scholars', id]);
   }
 }
