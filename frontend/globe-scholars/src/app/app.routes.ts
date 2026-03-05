@@ -7,6 +7,7 @@ import {ScholarsComponent} from './internal/scholars-component/scholars-componen
 import {RepositoryComponent} from './internal/repository-component/repository-component';
 import {UploadWorkComponent} from './internal/upload-work-component/upload-work-component';
 import {ScholarProfileComponent} from './internal/scholar-profile-component/scholar-profile-component';
+import {UserProfileComponent} from './internal/user-profile-component/user-profile-component';
 
 export const routes: Routes = [
   {
@@ -40,6 +41,10 @@ export const routes: Routes = [
   {
     path: 'upload',
     component: UploadWorkComponent,
+  },
+  {
+    path: 'profile',
+    component: UserProfileComponent
   },
   {
     path: '**',

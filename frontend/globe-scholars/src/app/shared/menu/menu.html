@@ -11,7 +11,7 @@
 
         <div class="menu-btns">
             @if(authService.isLoggedIn && userImage){
-                <div class="profileImage">
+              <div class="profileImage" routerLink="/profile" style="cursor: pointer;">
                     <img [src]="userImage"  alt=""/>
                 </div>
             }
