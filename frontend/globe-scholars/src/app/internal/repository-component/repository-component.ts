@@ -4,9 +4,8 @@ import {RepositoryService} from '../../services/repository/repository-service';
 import {WorkSummary} from '../../services/repository/work.model';
 import {ScholarsService} from '../../services/scholars/scholars-service';
 import {Scholar} from '../../services/scholars/scholar.model';
-import {environment} from '../../../environments/environment.development';
 import { AuthService } from '../../services/auth/auth-service';
-import {RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 
 @Component({
@@ -20,6 +19,7 @@ export class RepositoryComponent implements OnInit {
   scholars: Scholar[] = [];
   isLoading = true;
   error: string | null = null;
+  showLoginModal = false;
 
   buttons = [
     {id: 'last-year', text: 'Last Year'},
@@ -32,6 +32,7 @@ export class RepositoryComponent implements OnInit {
     private repositoryService: RepositoryService,
     private scholarsService: ScholarsService,
     protected authService: AuthService,
+    private router: Router,
   ) {
   }
 
@@ -65,33 +66,25 @@ export class RepositoryComponent implements OnInit {
   }
 
   downloadWork(work: WorkSummary) {
-    const token = sessionStorage.getItem('access_token');
-    if (!token) {
-      alert('Please log in to download files.');
-      return;
-    }
-
-    fetch(`${environment.baseURL}/repository/${work.id}/download/`, {
-      headers: { Authorization: `Bearer ${token}` }
-    })
-      .then(res => {
-        if (res.status === 401) {
-          alert('Please log in to download files.');
-          return null;
-        }
-        if (!res.ok) throw new Error('Download failed');
-        return res.blob();
-      })
-      .then(blob => {
-        if (!blob) return;
+    this.repositoryService.downloadWork(work.id).subscribe({
+      next: (blob) => {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
         a.download = work.title;
         a.click();
         window.URL.revokeObjectURL(url);
-      })
-      .catch(() => alert('Download failed. Please try again.'));
+      },
+      error: () => alert('Download failed. Please try again.')
+    });
+  }
+
+  openWork(workId: number) {
+    if (!this.authService.isLoggedIn) {
+      this.showLoginModal = true;
+      return;
+    }
+    this.router.navigate(['/repository', workId]);
   }
 
   activeFilter = 'all-time';

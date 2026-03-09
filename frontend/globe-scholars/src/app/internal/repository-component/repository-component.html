@@ -20,13 +20,10 @@
       @for (work of filteredWorks; track work.id) {
         <div class="file-card">
           <div class="file-grid">
-            <h1>{{ work.title }}</h1>
-            <h2>{{ work.authors }}</h2>
-            <p class="work-year">{{ work.publication_year }}</p>
+            <h1 class="work-title">{{ work.title }}</h1>
             <p class="work-uploader">{{ work.uploader.full_name }}</p>
             <div class="grid-footer">
-<!--              TODO: Implement open functionality-->
-              <button>Open</button>
+              <button type="button" (click)="openWork(work.id)">Open</button>
               @if (authService.isLoggedIn) {
                 <button type="button" (click)="downloadWork(work)">Download</button>
               }
@@ -77,3 +74,16 @@
     </div>
   </div>
 </div>
+
+@if (showLoginModal) {
+  <div class="modal-overlay" (click)="showLoginModal = false">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <h3>Login Required</h3>
+      <p>Log in to view this file.</p>
+      <div class="modal-actions">
+        <button type="button" (click)="showLoginModal = false">Cancel</button>
+        <a routerLink="/login"><button type="button">Login</button></a>
+      </div>
+    </div>
+  </div>
+}

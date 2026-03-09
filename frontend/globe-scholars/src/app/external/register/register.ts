@@ -59,11 +59,11 @@ export class Register implements OnInit {
       error: (res) => {
         if (res.error.username) {
           this.apiErrorMsg = res.error.username[0];
-        }
-        if (res.error.password) {
+        } else if (res.error.password) {
           this.apiErrorMsg = res.error.password[0];
+        } else {
+          this.apiErrorMsg = '';
         }
-        this.apiErrorMsg = '';
         this.form.markAllAsTouched();
         console.log(res.error)
       }

@@ -10,6 +10,7 @@ import {RepositoryComponent} from './internal/repository-component/repository-co
 import {UploadWorkComponent} from './internal/upload-work-component/upload-work-component';
 import {ScholarProfileComponent} from './internal/scholar-profile-component/scholar-profile-component';
 import {UserProfileComponent} from './internal/user-profile-component/user-profile-component';
+import {FileViewComponent} from './internal/file-view-component/file-view-component';
 
 export const routes: Routes = [
   {
@@ -41,6 +42,11 @@ export const routes: Routes = [
   {
     path: 'repository',
     component: RepositoryComponent,
+  },
+  {
+    path: 'repository/:id',
+    component: FileViewComponent,
+    canActivate: [authGuard]
   },
   {
     path: 'upload',

@@ -1,3 +1,57 @@
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+
+  .modal {
+    background: #fff;
+    border-radius: 8px;
+    padding: 2rem;
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    h3 {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.5rem;
+
+      button {
+        padding: 6px 16px;
+        border-radius: 5px;
+        border: 1px solid #d0d0d0;
+        background: #f0f0f0;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 0.9rem;
+
+        &:last-child {
+          background: #111;
+          color: #fff;
+          border-color: #111;
+        }
+      }
+    }
+  }
+}
+
 .breadcrumb-sm {
   font-size: 14px;
   color: #777;
@@ -74,6 +128,10 @@
         border-radius: 5px;
         padding: 10px;
         margin: 10px 0px;
+
+        .work-title, .work-uploader {
+          text-transform: capitalize;
+        }
 
         h1, h2 {
           font-size: 18px;
