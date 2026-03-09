@@ -1,51 +1,79 @@
 <div class="breadcrumb-sm">Home > Repository</div>
 
 <div class="file-container">
-    <div class="left-column">
-        <div class="breadcrumb-xl">Home > Repository</div>
-        <div class="search-bar">
-            <h4>Search Bar</h4>
-            <input type="text" placeholder="Search by name..."/>
-            <small>Type to search for documents by name</small>
-        </div>
-        @for(file of filteredFiles; track file.id) {
-            <div class="file-card">
-                <div class="file-grid">
-                    <h1>{{ file.title }}</h1>
-                    <h2>{{ file.author }}</h2>
-                    <div class="grid-footer">
-                        <button>Open</button>
-                        <button>Download</button>
-                    </div>
-                </div>
-            </div>
-        }
+  <div class="left-column">
+    <div class="breadcrumb-xl">Home > Repository</div>
+
+    <div class="search-bar">
+      <h4>Search Bar</h4>
+      <input type="text" [(ngModel)]="searchQuery" placeholder="Search by name..."/>
+      <small>Type to search for documents by name</small>
     </div>
 
-    <div class="right-column">
-        <div class="filter-container">
-            <h4>Filter by Publication Year</h4>
-            <div class="filter-btns">
-                @for(button of buttons; track button.id){
-                    <button>{{ button.text }}</button>
-                }
+    @if (isLoading) {
+      <div class="state-message">Loading...</div>
+    } @else if (error) {
+      <div class="state-message error">{{ error }}</div>
+    } @else if (filteredWorks.length === 0) {
+      <div class="state-message">No works found.</div>
+    } @else {
+      @for (work of filteredWorks; track work.id) {
+        <div class="file-card">
+          <div class="file-grid">
+            <h1>{{ work.title }}</h1>
+            <h2>{{ work.authors }}</h2>
+            <p class="work-year">{{ work.publication_year }}</p>
+            <p class="work-uploader">{{ work.uploader.full_name }}</p>
+            <div class="grid-footer">
+<!--              TODO: Implement open functionality-->
+              <button>Open</button>
+              @if (authService.isLoggedIn) {
+                <button type="button" (click)="downloadWork(work)">Download</button>
+              }
             </div>
-            <small>Select publication year range</small>
+          </div>
         </div>
-        <div class="file-listing">
-            <div class="listing-header">
-                <h4>Scholars</h4>
-                <button>View All</button>
-            </div>
-            <div class="file-card">
-            @for (scholar of scholars; track scholar.id) {
-                <div>
-                    <img [src]="'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'" />
-                    <h1>{{ scholar.firstName + ' ' + scholar.lastName }}</h1>
-                    <h1>{{ scholar.createdAt | date }}</h1>
-                </div>
-            }
-            </div>
-        </div>
+      }
+    }
+  </div>
+
+  <div class="right-column">
+    <div class="filter-container">
+      <h4>Filter by Publication Year</h4>
+      <div class="filter-btns">
+        @for (button of buttons; track button.id) {
+          <button
+            [class.active]="activeFilter === button.id"
+            (click)="setFilter(button.id)"
+          >
+            {{ button.text }}
+          </button>
+        }
+      </div>
+      <small>Select publication year range</small>
     </div>
+
+    <div class="file-listing">
+      <div class="listing-header">
+        <h4>Scholars</h4>
+        <button>
+          <a routerLink="/scholars">View All</a>
+        </button>
+      </div>
+      <div class="scholars-list">
+        @for (scholar of scholars; track scholar.id) {
+          <div class="scholar-row">
+            <img
+              [src]="'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'"
+              [alt]="scholar.fullName"
+            />
+            <div>
+              <p>{{ scholar.fullName }}</p>
+              <p>{{ scholar.createdAt | date: 'yyyy' }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
 </div>

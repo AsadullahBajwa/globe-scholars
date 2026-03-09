@@ -1,186 +1,211 @@
 .breadcrumb-sm {
-    font-size: 14px;
-    color: #777;
-    margin-bottom: 20px;
-    padding: 30px 40px 10px 40px;
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 20px;
+  padding: 30px 40px 10px 40px;
 
-    @media screen and (min-width: 1024px) {
-        display: none;
-    }
+  @media screen and (min-width: 1024px) {
+    display: none;
+  }
 }
 
 .file-container {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    padding: 30px 40px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 30px 40px;
+
+  @media screen and (max-width: 1024px) {
+    flex-direction: column-reverse;
+  }
+
+  .left-column {
+    width: 70%;
+    padding: 0px 20px;
 
     @media screen and (max-width: 1024px) {
-        flex-direction: column-reverse;
+      width: 100%;
     }
 
-    .left-column {
-        width: 70%;
-        padding: 0px 20px;
+    .breadcrumb-xl {
+      font-size: 14px;
+      color: #777;
+      margin-bottom: 20px;
 
-        @media screen and (max-width: 1024px) {
-            width: 100%;
+      @media screen and (max-width: 1024px) {
+        display: none;
+      }
+    }
+
+    .search-bar {
+      margin-bottom: 25px;
+
+      input {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 10px 12px;
+        border: 1px solid #f0f0f0;
+        border-radius: 5px;
+        font-size: 14px;
+        font-family: inherit;
+        outline: none;
+        transition: border-color 0.2s;
+
+        &:focus {
+          border-color: #555;
         }
 
-        .breadcrumb-xl {
-            font-size: 14px;
-            color: #777;
-            margin-bottom: 20px;
+        &::placeholder {
+          color: #aaa;
+        }
+      }
 
-            @media screen and (max-width: 1024px) {
-                display: none;
-            }
+      small {
+        color: #aaa;
+      }
+    }
+
+    .file-card {
+      display: flex;
+      flex-direction: column;
+
+      .file-grid {
+        border: 1px solid #f0f0f0;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 10px 0px;
+
+        h1, h2 {
+          font-size: 18px;
+          font-style: normal;
+          font-weight: 500;
+          padding: 0;
         }
 
-        .search-bar {
-            margin-bottom: 25px;
-        
-            input {
-            width: 100%;
-            box-sizing: border-box;
-            padding: 10px 12px;
+        h2 {
+          font-size: 16px;
+        }
+
+        .grid-footer {
+          display: flex;
+          justify-content: flex-end;
+          gap: 10px;
+
+          button {
+            background-color: #f0f0f0;
+            outline: none;
             border: 1px solid #f0f0f0;
             border-radius: 5px;
-            font-size: 14px;
-            font-family: inherit;
-            outline: none;
-            transition: border-color 0.2s;
-        
-            &:focus { border-color: #555; }
-            &::placeholder { color: #aaa; }
-            }
-            small {
-                color: #aaa;
-            }
-        }
-        .file-card {
-            display: flex;
-            flex-direction: column;
+            padding: 2px 8px;
+            cursor: pointer;
 
-            .file-grid {
-                border: 1px solid #f0f0f0;
-                border-radius: 5px;
-                padding: 10px;
-                margin: 10px 0px;
-    
-                h1, h2 {
-                    font-size: 18px;
-                    font-style: normal;
-                    font-weight: 500;
-                    padding: 0;
-                }
-                h2 { font-size: 16px; }
-    
-                .grid-footer {
-                    display: flex;
-                    justify-content: flex-end;
-                    gap: 10px;
-    
-                    button {
-                        background-color: #f0f0f0;
-                        outline: none;
-                        border: 1px solid #f0f0f0;
-                        border-radius: 5px;
-                        padding: 2px 8px;
-                        cursor: pointer;
-    
-                    }
-                }
-            }
+          }
         }
+      }
     }
+  }
 
   .right-column {
     width: 30%;
     padding: 0px 20px;
 
     @media screen and (max-width: 1024px) {
-        width: 100%;
+      width: 100%;
     }
 
     .filter-container {
+      display: flex;
+      flex-direction: column;
+
+      .filter-btns {
         display: flex;
-        flex-direction: column;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 10px;
 
-        .filter-btns {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 10px;
+        button {
+          background-color: #f0f0f0;
+          outline: none;
+          border: 1px solid #f0f0f0;
+          border-radius: 5px;
+          padding: 4px 10px;
+          cursor: pointer;
+          font-family: inherit;
+          font-size: 13px;
 
-            button {
-                background-color: #f0f0f0;
-                outline: none;
-                border: 1px solid #f0f0f0;
-                border-radius: 5px;
-                padding: 2px 5px;
-                cursor: pointer;
-            }
+          &.active {
+            background-color: #111;
+            color: #fff;
+            border-color: #111;
+          }
         }
-        small {
-            color: #aaa;
-        }
+      }
+
+      small {
+        color: #aaa;
+      }
     }
+
     .file-listing {
-        margin-top: 30px;
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+
+      .listing-header {
         display: flex;
-        flex-direction: column;
+        justify-content: space-between;
 
-        .listing-header {
-            display: flex;
-            justify-content: space-between;
-
-            h4, button {
-                font-size: 16px;
-                font-style: normal;
-                font-weight: 500;
-            }
-
-            button {
-                background: none;
-                border: none;
-                outline: none;
-                cursor: pointer;
-            }
+        h4, button {
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 500;
         }
-        .file-card {
+
+        button {
+          background: none;
+          border: none;
+          outline: none;
+          cursor: pointer;
+        }
+      }
+
+      .scholars-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-top: 10px;
+
+        .scholar-row {
+          display: flex;
+          flex-direction: column;
+          border: 1px solid #f0f0f0;
+          border-radius: 8px;
+          overflow: hidden;
+          cursor: pointer;
+
+          img {
             width: 100%;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 10px;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+          }
 
-            div {
-                width: 40%;
-                border: 1px solid #f0f0f0;
-                border-radius: 5px;
-                display: flex;
-                flex-direction: column;
-                min-width: 140px;
+          div {
+            padding: 8px;
 
-                @media screen and (max-width: 1024px) {
-                    width: 30%;
-                }
-            }
+            p {
+              margin: 0;
+              font-size: 13px;
+              color: #333;
 
-            img {
-                width: 100%;
-                object-fit: contain;
+              &:last-child {
+                font-size: 14px;
+                font-weight: 700;
+                color: #111;
+              }
             }
-            h1 {
-                padding: 4px;
-                font-style: normal;
-                font-weight: 500;
-                font-size: 16px;
-                text-transform: capitalize;
-            }
-            
+          }
         }
+      }
     }
-
   }
 }
